@@ -1,3 +1,9 @@
-<form>
-    <label for="input">This is input</label><input id="input" type="text"git>
+<form id="wholesale-form">
+    <fieldset>
+        <legend>Add to cart</legend>
+        <label>SKU: <input id="input-sku" type="text" name="SKU" autocomplete="off" list="skus" required></label>
+        <datalist id="skus">
+        </datalist>
+    </fieldset>
+    <button id="submitAdding" class="btn">Add</button>
 </form>
