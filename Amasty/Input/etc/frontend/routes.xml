@@ -5,5 +5,6 @@
         <route frontName="customrouter" id="input">
             <module name="Amasty_Input"/>
         </route>
+
     </router>
 </config>

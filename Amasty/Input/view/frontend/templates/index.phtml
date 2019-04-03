@@ -5,5 +5,45 @@
         <datalist id="skus">
         </datalist>
     </fieldset>
-    <button id="submitAdding" class="btn">Add</button>
+    <button id="submitAdding">Add</button>
 </form>
+<button id="test">Add</button>
+<div class="example">
+
+</div>
+
+<script type="text/javascript">
+    require(['jquery'],function($){
+
+        $(document).ready(function(){
+            $('#test').on('click', function () {
+                $.ajax({
+                    url: 'customrouter/action/autocomplete',
+
+                    data:   $('#wholesale-form').serialize(),
+                    beforeSend: function () {
+                        console.log('ajax is working');
+                    },
+                    success: function (response) {
+                        var array = JSON.parse(response);
+                        console.log(array);
+                        //$('.example').html(array);
+                    }
+                });
+            })
+        });
+
+    });
+
+    // $('#submitAdding').hide(3000);
+    // ajaxQuery = $.ajax({
+    //                     url: 'customrouter/action/autocomplete',
+    //
+    //                     data: {'searchPattern': inputField.val()},
+    //                     beforeSend: function () {
+    //                         console.log('hello');
+    //                     }
+    //
+    //                     }
+    //                 });
+</script>

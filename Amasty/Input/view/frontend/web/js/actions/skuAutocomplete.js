@@ -1,32 +1,37 @@
-require([
-    'jquery'
-], function ($) {
-    $(function () {
-        const inputField = $('#input-sku');
-        let ajaxQuery = null;
-        inputField.on('keypress', function () {
-            if (inputField.val().length > 3) {
-                if (ajaxQuery) {
-                    ajaxQuery.abort();
-                }
-                ajaxQuery = $.ajax({
-                    url: "/Input/Actions/Autocomplete",
-                    data: {'searchPattern': inputField.val()},
-                    success: function (data) {
-                        try {
-                            JSON.parse(data);
-                            fillAutoComplete(data);
-                        } catch (e) {
-                            console.log("Something went wrong");
-                        }
-                    }
-                });
-            }
-        });
-    });
+// require([
+//     'jquery'
+// ], function ($) {
+//     $(function () {
+//         const inputField = $('#submitAdding');
+//         let ajaxQuery = null;
+//         inputField.on('click', function () {
+//
+//
+//                 ajaxQuery = $.ajax({
+//                     url: 'customrouter/action/autocomplete',
+//
+//                     data: {'searchPattern': inputField.val()},
+//                     beforeSend: function () {
+//                         console.log('hello');
+//                     }
+//                     // success: function (data) {
+//                     //     // try {
+//                     //     //     JSON.parse(data);
+//                     //     //     fillAutoComplete(data);
+//                     //     // } catch (e) {
+//                     //     //     console.log("Something went wrong");
+//                     //     // }
+//                     //     $('#input-sku').val('ya magu');
+//                     }
+//                 });
+//
+//         });
+//
+//     });
+//
+//     function fillAutoComplete(data) {
+//         data.forEach(function () {
+//         });
+//     }
+// });
 
-    function fillAutoComplete(data) {
-        data.forEach(function () {
-        });
-    }
-});
