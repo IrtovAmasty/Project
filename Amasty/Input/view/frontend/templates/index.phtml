@@ -1,17 +1,18 @@
-<form id="wholesale-form">
+<form id="wholesale-form" action="">
     <fieldset>
         <legend>Add to cart</legend>
             <label>SKU: <input id="input-sku" type="text" name="SKU" autocomplete="off" list="skus" required></label>
         <datalist id="skus">
         </datalist>
     </fieldset>
-    <button id="submitAdding">Add</button>
+    <button id="submitAdding" type="submit">Add</button>
 </form>
 
 <script type="text/javascript">
     require(['jquery'],function($){
 
         $(document).ready(function(){
+
             $('#input-sku').on('keypress', function () {
                 $.ajax({
                     url: 'customrouter/action/autocomplete',
@@ -19,6 +20,7 @@
                     data:   $('#wholesale-form').serialize(),
                     beforeSend: function () {
                         console.log('ajax is working');
+                        $('#skus').empty();
                     },
                     success: function (response) {
 
@@ -31,6 +33,21 @@
                     }
                 });
             })
+
+            $('#submitAdding').on('click', function (e) {
+                e.preventDefault();
+                $.ajax({
+                    url: 'customrouter/cart/addtocart',
+                    data: $('#wholesale-form').serialize(),
+                    beforeSend: function () {
+                        console.log('before send sku');
+                    },
+                    success: function () {
+                        console.log("added");
+                    }
+                })
+            })
+
         });
     });
 </script>

@@ -5,6 +5,7 @@ namespace Amasty\Input\Model;
 
 
 use Amazon\Payment\Api\Data\PendingRefundInterface;
+use \Magento\Catalog\Model\Product\Type;
 
 class Store extends \Magento\Framework\Model\AbstractModel
 {
@@ -35,8 +36,8 @@ class Store extends \Magento\Framework\Model\AbstractModel
         $productCollection
             ->addAttributeToSelect(['sku', 'name', 'type_id', 'qty'])
             ->addFieldToFilter('sku', ['like' => $pattern . '%'])
-            //->addFieldToFilter('type_id', ['eq' => Type::TYPE_SIMPLE])
-            ->setPageSize(15)
+            ->addFieldToFilter('type_id', ['eq' => Type::TYPE_SIMPLE])
+            ->setPageSize(7)
             ->setCurPage(1);
         $array = [];
 
