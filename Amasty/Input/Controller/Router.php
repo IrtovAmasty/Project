@@ -5,7 +5,7 @@ namespace Amasty\Input\Controller;
 use \Magento\Framework\App\RequestInterface;
 use \Magento\Store\Model\ScopeInterface;
 
-class Router implements \Magento\Framework\App\RouterInterface
+class   Router implements \Magento\Framework\App\RouterInterface
 {
     /**
      * @var \Magento\Framework\App\ActionFactory

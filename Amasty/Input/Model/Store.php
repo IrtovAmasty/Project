@@ -33,13 +33,15 @@ class Store extends \Magento\Framework\Model\AbstractModel
 
         $productCollection = $this->collectionFactory->create();
         $productCollection
+            ->addAttributeToSelect(['sku', 'name', 'type_id', 'qty'])
             ->addFieldToFilter('sku', ['like' => $pattern . '%'])
+            //->addFieldToFilter('type_id', ['eq' => Type::TYPE_SIMPLE])
             ->setPageSize(15)
             ->setCurPage(1);
         $array = [];
 
         foreach ($productCollection as $product ) {
-            $array[$product->getSku()] = $product->getSku();
+            $array[$product->getSku()] = $product->getName();
         }
         return $array;
 

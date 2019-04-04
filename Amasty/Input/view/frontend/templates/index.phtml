@@ -1,22 +1,18 @@
 <form id="wholesale-form">
     <fieldset>
         <legend>Add to cart</legend>
-        <label>SKU: <input id="input-sku" type="text" name="SKU" autocomplete="off" list="skus" required></label>
+            <label>SKU: <input id="input-sku" type="text" name="SKU" autocomplete="off" list="skus" required></label>
         <datalist id="skus">
         </datalist>
     </fieldset>
     <button id="submitAdding">Add</button>
 </form>
-<button id="test">Add</button>
-<div class="example">
-
-</div>
 
 <script type="text/javascript">
     require(['jquery'],function($){
 
         $(document).ready(function(){
-            $('#test').on('click', function () {
+            $('#input-sku').on('keypress', function () {
                 $.ajax({
                     url: 'customrouter/action/autocomplete',
 
@@ -25,25 +21,16 @@
                         console.log('ajax is working');
                     },
                     success: function (response) {
-                        var array = JSON.parse(response);
-                        console.log(array);
-                        //$('.example').html(array);
+
+                        console.log(response);
+
+                        for (var sku in response) {
+                            $('#skus').append($('<option>').attr('value', sku).text(response[sku]));
+                            console.log(sku);
+                        }
                     }
                 });
             })
         });
-
     });
-
-    // $('#submitAdding').hide(3000);
-    // ajaxQuery = $.ajax({
-    //                     url: 'customrouter/action/autocomplete',
-    //
-    //                     data: {'searchPattern': inputField.val()},
-    //                     beforeSend: function () {
-    //                         console.log('hello');
-    //                     }
-    //
-    //                     }
-    //                 });
 </script>
