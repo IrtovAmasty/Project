@@ -28,16 +28,8 @@ class Autocomplete extends \Magento\Framework\App\Action\Action
 
     public function execute()
     {
-        //echo $this->model->findBySKU($this->getRequest()->getParam('SKU'));
-
         $resultJson = $this->resultFactory->create(ResultFactory::TYPE_JSON);
         $resultJson->setData($this->model->findBySKU($this->getRequest()->getParam('SKU')));
         return $resultJson;
-        //return $this->getRequest()->getParam('data');
-
-
-        //echo "hello";
-        //$this->getRequest()->getParam('SKU');
-
     }
 }

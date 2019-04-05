@@ -31,16 +31,13 @@ class AddToCart extends \Magento\Framework\App\Action\Action
         $product = $this->productRepository->get($sku);
 
         $param = [
-            'qty' => '1';
+            'qty' => '1'
         ];
 
         $this->cart->addProduct($product, $param);
         $this->cart->save();
 
-//        $resultRedirect = $this->resultRedirectFactory->create();
-//        $resultRedirect->setPath('test');
-//
-//        return $resultRedirect;
+        //return $this->_redirect('customrouter/index/index');
 
 
     }

@@ -1,25 +1,35 @@
-<form id="wholesale-form" action="">
-    <fieldset>
+<?php /** @var $block \Magento\Framework\View\Element\Template */ ?>
+
+<form id="wholesale-form">
+    <fieldset class="fieldset-own-class">
+        <?php echo $block->getBlockHtml('formkey') ?>
         <legend>Add to cart</legend>
-            <label>SKU: <input id="input-sku" type="text" name="SKU" autocomplete="off" list="skus" required></label>
+        <label>SKU: <input id="input-sku" type="text" name="SKU" autocomplete="off" list="skus" required></label>
+        <label class="qty-own-class">QTY: <input id="input-qty" type="text" name="QTY" autocomplete="off"
+                                                 required></label>
         <datalist id="skus">
         </datalist>
     </fieldset>
-    <button id="submitAdding" type="submit">Add</button>
+    <button class="button-own-class" type="button" id="submitAdding">Add</button>
 </form>
 
 <script type="text/javascript">
-    require(['jquery'],function($){
+    require(['jquery', 'Magento_Customer/js/customer-data'], function ($, customerData) {
 
-        $(document).ready(function(){
-
+        $(document).ready(function () {
+            var xhr = null;
             $('#input-sku').on('keypress', function () {
-                $.ajax({
+
+                if (xhr) {
+                    xhr.abort();
+                }
+
+                xhr = $.ajax({
+
                     url: 'customrouter/action/autocomplete',
 
-                    data:   $('#wholesale-form').serialize(),
+                    data: $('#wholesale-form').serialize(),
                     beforeSend: function () {
-                        console.log('ajax is working');
                         $('#skus').empty();
                     },
                     success: function (response) {
@@ -28,26 +38,43 @@
 
                         for (var sku in response) {
                             $('#skus').append($('<option>').attr('value', sku).text(response[sku]));
-                            console.log(sku);
                         }
+
+                        xhr = null;
                     }
                 });
+            });
+
+            $('#input-sku').on('blur', function () {
+                $('#skus').empty();
             })
 
+
             $('#submitAdding').on('click', function (e) {
-                e.preventDefault();
+
                 $.ajax({
-                    url: 'customrouter/cart/addtocart',
+
+                    url: 'checkout/cart/add',
+                    type: 'POST',
                     data: $('#wholesale-form').serialize(),
-                    beforeSend: function () {
+                    beforeSend: function (data) {
                         console.log('before send sku');
+                        console.log(data);
+
                     },
                     success: function () {
                         console.log("added");
+                        var sections = ['cart'];
+                        customerData.reload(sections, true);
                     }
-                })
-            })
+                });
+
+
+            });
+
 
         });
     });
 </script>
+
+
