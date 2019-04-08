@@ -3,6 +3,7 @@
       xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <head>
         <css src="Amasty_Input::css/myStyle.css"/>
+        <link src="Amasty_Input::js/actions/addToCart.js"/>
     </head>
     <body>
         <referenceContainer name="content">
