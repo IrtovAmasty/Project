@@ -24,11 +24,19 @@
             <label>Discounts</label>
             <tab>amasty</tab>
             <resource>Amasty_Input::input_config</resource>
-            <group id="setting_discounts" translate="label" type="text" sortOrder="11" showInDefault="1" showInWebsite="0"
+            <group id="setting_discounts" translate="label" type="text" sortOrder="11" showInDefault="1"
+                   showInWebsite="0"
                    showInStore="0">
-                <label>Set discount</label>
-                <frontend_model>Amasty\Input\Model\Config\Frontend\Form\Field\DiscountAmount</frontend_model>
-
+                <field id="navigation_links"
+                       translate="label"
+                       sortOrder="4"
+                       showInDefault="1"
+                       showInWebsite="1"
+                       showInStore="1">
+                    <label>Set discount</label>
+                    <frontend_model>Amasty\Input\Model\Config\Frontend\Form\Field\DiscountAmount</frontend_model>
+                    <backend_model>Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
+                </field>
             </group>
         </section>
     </system>

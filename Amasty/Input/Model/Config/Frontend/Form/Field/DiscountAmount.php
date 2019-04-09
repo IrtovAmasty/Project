@@ -13,17 +13,16 @@ class DiscountAmount extends AbstractFieldArray
         $this->addColumn(
             'price',
             [
-                'label' => __('Price'),
-                'class' => 'required-entry'
+                'label' => __('Price')
             ]
         );
         $this->addColumn(
             'discount_amount',
             [
-                'label' => __('Discount'),
-                'class' => 'required-entry'
+                'label' => __('Discount')
             ]
         );
+
         $this->_addAfter = false;
         $this->_addButtonLabel = __('New discount');
     }

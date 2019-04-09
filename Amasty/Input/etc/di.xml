@@ -8,4 +8,11 @@
                 sortOrder="10"
                 disabled="false"/>
     </type>
+    <type name="Magento\SalesRule\Model\RulesApplier">
+        <plugin
+                name="amasty_input_salesrule_model_apply_custom_discount"
+                type="Amasty\Input\Plugin\PluginApplyCustomDiscount"
+                sortOrder="11"
+                disabled="false"/>
+    </type>
 </config>
