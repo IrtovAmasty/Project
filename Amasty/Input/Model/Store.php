@@ -1,13 +1,15 @@
 <?php
 
-
 namespace Amasty\Input\Model;
 
-
 use Amazon\Payment\Api\Data\PendingRefundInterface;
+use \Magento\Catalog\Model\Product\Type;
 
 class Store extends \Magento\Framework\Model\AbstractModel
 {
+    /**
+     * @var \Magento\Catalog\Model\ResourceModel\Product\CollectionFactory
+     */
     protected $collectionFactory;
 
     public function __construct(
@@ -26,22 +28,26 @@ class Store extends \Magento\Framework\Model\AbstractModel
             $data
         );
         $this->collectionFactory = $collectionFactory;
-
     }
 
+    /**
+     * @param $pattern
+     * @return array
+     */
     public function findBySKU ($pattern) {
 
         $productCollection = $this->collectionFactory->create();
         $productCollection
+            ->addAttributeToSelect(['sku', 'name', 'type_id', 'qty'])
             ->addFieldToFilter('sku', ['like' => $pattern . '%'])
-            ->setPageSize(15)
+            ->addFieldToFilter('type_id', ['eq' => Type::TYPE_SIMPLE])
+            ->setPageSize(7)
             ->setCurPage(1);
         $array = [];
 
         foreach ($productCollection as $product ) {
-            $array[$product->getSku()] = $product->getSku();
+            $array[$product->getSku()] = $product->getName();
         }
         return $array;
-
     }
 }
