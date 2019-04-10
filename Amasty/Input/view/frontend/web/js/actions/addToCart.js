@@ -33,7 +33,7 @@ require(['jquery', 'Magento_Customer/js/customer-data'], function ($, customerDa
         $('#submitAdding').on('click', function (e) {
 
             $.ajax({
-                url: 'checkout/cart/add',
+                url: 'customrouter/cart/addtocart',
                 type: 'POST',
                 data: $('#wholesale-form').serialize(),
                 beforeSend: function (data) {
@@ -42,7 +42,7 @@ require(['jquery', 'Magento_Customer/js/customer-data'], function ($, customerDa
 
                 },
                 success: function () {
-                    console.log("added");
+                    console.log("addeda");
                     var sections = ['cart'];
                     customerData.reload(sections, true);
                 }
