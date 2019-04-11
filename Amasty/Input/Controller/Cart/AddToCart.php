@@ -14,10 +14,19 @@ class AddToCart extends \Magento\Framework\App\Action\Action
      */
     protected $productRepository;
 
+    /**
+     * @var \Magento\Framework\Mail\Template\TransportBuilder
+     */
     protected $transportBuilder;
 
+    /**
+     * @var \Magento\Store\Model\StoreManagerInterface
+     */
     protected $storeManager;
 
+    /**
+     * @var \Magento\Framework\App\Request\Http
+     */
     protected $request;
 
     public function __construct(
@@ -44,52 +53,31 @@ class AddToCart extends \Magento\Framework\App\Action\Action
 
         $product = $this->productRepository->get($sku);
 
-        $stockQTY = $product->getExtensionAttributes()->getStockItem()->getQty();
+        $stockQty = $product->getExtensionAttributes()->getStockItem()->getQty();
 
-        if ((float)$qty > $stockQTY) {
+        if ($qty > $stockQty) {
 
-//            $store = $this->storeManager->getStore()->getId();
-//            $transport = $this->transportBuilder->setTemplateIdentifier('email_template')
-//                ->setTemplateOptions(['area' => 'frontend', 'store' => $store])
-//                ->setTemplateVars(
-//                    [
-//                        'store' => $this->storeManager->getStore(),
-//                    ]
-//                )
-//                ->setTemplateVars(array())
-//                ->setFrom(array("name" => "arushi", "email" => "arushi.bansal@jispl.com"))
-//                ->addTo('mrirtov@gmail.com')
-//                ->getTransport();
-//            $transport->sendMessage();
+            $productId = $product->getId();
+            $salt = 'salty_salt';
+            $saltedHash = md5($productId . $salt);
+            $url = 'http://m231ceo.student5.ap72copy.sty/customrouter/stock/addtostock?SKU=' . $sku . '&hash=' . $saltedHash;
 
-//            $email = new \Zend_Mail();
-//
-//            $email->setBodyText('Hello');
-//            $email->setFrom('owner@example.com', 'Owner');
-//            $email->addTo('mrirtov@gmail.com', 'oleg');
-//            $email->setSubject('Test');
-//
-//            try {
-//                $email->send();
-//            }
-//            catch (Exception $ex) {
-//                Mage::getSingleton('core/session')
-//                    ->addError(Mage::helper('yourmodule')
-//                        ->__('Unable to send email.'));
-//            }
-
-            $receiverMail = "mrirtov@gmail.com";
-            $templateId = 1;        // id of email template
-            $storeId = 1;           // desired store id
-            $templateParams = [];   // params of template by array
-
-//php mail
-            var_dump(mail($receiverMail, "Test Subject", "Test Message"));
+            $store = $this->storeManager->getStore()->getId();
+            $transport = $this->transportBuilder->setTemplateIdentifier('email_template')
+                ->setTemplateOptions(['area' => 'frontend', 'store' => $store])
+                ->setTemplateVars(
+                    [
+                        'store' => $this->storeManager->getStore(),
+                    ]
+                )
+                ->setFrom(["name" => "oleg", "email" => "mrirotv@gmail.com"])
+                ->addTo('mrirtov@gmail.com')
+                ->getTransport();
+            $transport->sendMessage();
 
             $this->messageManager->addError('Sorry... We don\'t have enough items in the stock');
 
-        }
-        else {
+        } else {
             $param = [
                 'qty' => $qty
             ];
