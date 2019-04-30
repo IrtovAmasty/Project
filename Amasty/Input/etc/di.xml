@@ -15,4 +15,11 @@
                 sortOrder="11"
                 disabled="false"/>
     </type>
+    <type name="Amasty\Input\Block\ShoppingCart">
+        <plugin
+                name="amasty_input_sort"
+                type="Amasty\Input\Plugin\PluginSortCart"
+                sortOrder="11"
+                disabled="false"/>
+    </type>
 </config>

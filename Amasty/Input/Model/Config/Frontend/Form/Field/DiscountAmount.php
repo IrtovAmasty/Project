@@ -1,13 +1,11 @@
 <?php
 
-
 namespace Amasty\Input\Model\Config\Frontend\Form\Field;
 
 use Magento\Config\Block\System\Config\Form\Field\FieldArray\AbstractFieldArray;
 
 class DiscountAmount extends AbstractFieldArray
 {
-
     protected function _prepareToRender()
     {
         $this->addColumn(

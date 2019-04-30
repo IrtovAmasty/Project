@@ -23,7 +23,7 @@ class PluginAddToCard
     public function beforeExecute(\Magento\Checkout\Controller\Cart\Add $productForAdding) {
 
 
-        if ($productForAdding->getRequest()->getParam('product') === null) {
+        if ($productForAdding->getRequest()->getParam('hidden')) {
             $sku = $productForAdding->getRequest()->getParam('SKU');
             $productBySKU = $this->productRepository->get($sku);
 

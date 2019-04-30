@@ -1,0 +1,20 @@
+<?php
+$items = $block->getQuoteData();
+?>
+
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Sku</th>
+        <th>Quantity</th>
+    </tr>
+    <?php foreach ($items as $_item): ?>
+        <tr>
+            <td><?php echo $_item->getName(); ?></td>
+            <td><?php echo $_item->getSku(); ?></td>
+            <td><?php echo $_item->getQty(); ?></td>
+        </tr>
+    <?php endforeach; ?>
+</table>
+
+
